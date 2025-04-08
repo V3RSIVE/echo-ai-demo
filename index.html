@@ -1,92 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Echo – A Smarter Way to Care</title>
-  <style>
-    body {
-      background-color: #241631;
-      color: #F94CAF;
-      font-family: "Inconsolata Bold", monospace;
-      margin: 0;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-      font-size: 3rem;
-    }
-    .chatbox {
-      border: 1px solid #F94CAF;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    .user, .echo {
-      margin-bottom: 1.5rem;
-      padding: 0.8rem;
-      border-radius: 8px;
-    }
-    .user {
-      background-color: #32194d;
-      color: #FFF;
-    }
-    .echo {
-      background-color: #F94CAF;
-      color: #241631;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truist AI Virtual Assistant Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Echo: Live Demo</h1>
-    <div class="chatbox">
-      <div class="user">
-        <strong>User:</strong> Can I afford to go on a trip next month?
-      </div>
-      <div class="echo">
-        <strong>Echo:</strong> Based on your spending trends, you'll have approximately $780 left by the end of the month. Would you like me to create a savings plan for this trip?
-      </div>
-      <div class="user">
-        <strong>User:</strong> Yes.
-      </div>
-      <div class="echo">
-        <strong>Echo:</strong> Got it. I'll allocate $195 per week over the next four weeks. Trip savings goal is now active.
-      </div>
+    <div class="header">
+        <div class="container">
+            <img src="https://www.truist.com/content/dam/truist-bank/us/en/images/logos/truist-logo-purple-horizontal.png" alt="Truist Logo" class="logo">
+        </div>
     </div>
-    <!-- Input field to simulate AI interaction -->
-    <input type="text" id="prompt" placeholder="Ask Echo..." style="width: 70%; padding: 0.5rem;">
-    <button id="submit" style="padding: 0.5rem;">Send</button>
-    <div id="output" style="margin-top: 1rem; font-size:1.2rem;"></div>
-  </div>
+    
+    <div class="container">
+        <div class="demo-instructions">
+            <h4>Truist AI Virtual Assistant Demo <span class="demo-badge">Live Demo</span></h4>
+            <p>This is a simulated demonstration of Truist's advanced AI virtual assistant. Try asking questions about your account, financial advice, or use the quick action buttons below.</p>
+            <ul>
+                <li>Ask about account balances or recent transactions</li>
+                <li>Request financial insights or budgeting advice</li>
+                <li>Inquire about loan options or mortgage rates</li>
+                <li>Ask for help with financial planning</li>
+            </ul>
+            <p><strong>Note:</strong> This is a demonstration with pre-programmed responses. No actual banking data is accessed.</p>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMi4yMSAwLTQgMS43OS00IDRoMmMwLTEuMTEuOS0yIDItMnMyIC45IDIgMmMwIDItMyAxLjc1LTMgNWgyYzAtMi4yNSAzLTIuNSAzLTUgMC0yLjIxLTEuNzktNC00LTR6Ii8+PC9zdmc+" alt="Assistant Icon">
+                <span>Truist Virtual Assistant</span>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" class="chat-input" id="user-input" placeholder="Type your message here..." autocomplete="off">
+                <button class="send-button" id="send-button">Send</button>
+            </div>
+            <div class="quick-actions">
+                <button class="quick-action-button">Check my balance</button>
+                <button class="quick-action-button">Recent transactions</button>
+                <button class="quick-action-button">Loan options</button>
+                <button class="quick-action-button">Financial insights</button>
+                <button class="quick-action-button">Budgeting help</button>
+            </div>
+        </div>
+        
+        <div class="feature-highlight">
+            <h5>Advanced AI Features Demonstrated</h5>
+            <p>This demo showcases several key features of our proposed AI virtual assistant:</p>
+            <ul>
+                <li><strong>Natural Language Understanding:</strong> The assistant can interpret various ways of asking the same question</li>
+                <li><strong>Personalized Financial Insights:</strong> Provides tailored financial advice based on spending patterns</li>
+                <li><strong>Proactive Suggestions:</strong> Offers relevant financial products and services</li>
+                <li><strong>Conversational Interface:</strong> Maintains context throughout the conversation</li>
+                <li><strong>Neural Attention Memory Models:</strong> Reduces AI hallucinations for more accurate responses</li>
+            </ul>
+        </div>
+    </div>
 
-  <!-- JavaScript for AI API Integration -->
-  <script>
-    async function callAI(prompt) {
-      // WARNING: Never put a secret API key in client-side code.
-      // In production, use a serverless function or proxy to hide your keys.
-      const response = await fetch('https://api.example.com/ai-endpoint', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization": "Bearer YOUR_SECURE_API_KEY"   // Omit in client code
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-          max_tokens: 100
-        })
-      });
-      const data = await response.json();
-      return data.response;
-    }
-
-    document.getElementById("submit").addEventListener("click", async () => {
-      const prompt = document.getElementById("prompt").value;
-      const output = await callAI(prompt);
-      document.getElementById("output").textContent = output;
-    });
-  </script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
