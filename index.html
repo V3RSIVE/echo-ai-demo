@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Echo – A Smarter Way to Care</title>
+  <style>
+    body {
+      background-color: #241631;
+      color: #F94CAF;
+      font-family: "Inconsolata Bold", monospace;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+    }
+    .chatbox {
+      border: 1px solid #F94CAF;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    .user, .echo {
+      margin-bottom: 1.5rem;
+      padding: 0.8rem;
+      border-radius: 8px;
+    }
+    .user {
+      background-color: #32194d;
+      color: #FFF;
+    }
+    .echo {
+      background-color: #F94CAF;
+      color: #241631;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Echo: Live Demo</h1>
+    <div class="chatbox">
+      <div class="user">
+        <strong>User:</strong> Can I afford to go on a trip next month?
+      </div>
+      <div class="echo">
+        <strong>Echo:</strong> Based on your spending trends, you'll have approximately $780 left by the end of the month. Would you like me to create a savings plan for this trip?
+      </div>
+      <div class="user">
+        <strong>User:</strong> Yes.
+      </div>
+      <div class="echo">
+        <strong>Echo:</strong> Got it. I'll allocate $195 per week over the next four weeks. Trip savings goal is now active.
+      </div>
+    </div>
+    <!-- Input field to simulate AI interaction -->
+    <input type="text" id="prompt" placeholder="Ask Echo..." style="width: 70%; padding: 0.5rem;">
+    <button id="submit" style="padding: 0.5rem;">Send</button>
+    <div id="output" style="margin-top: 1rem; font-size:1.2rem;"></div>
+  </div>
+
+  <!-- JavaScript for AI API Integration -->
+  <script>
+    async function callAI(prompt) {
+      // WARNING: Never put a secret API key in client-side code.
+      // In production, use a serverless function or proxy to hide your keys.
+      const response = await fetch('https://api.example.com/ai-endpoint', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": "Bearer YOUR_SECURE_API_KEY"   // Omit in client code
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          max_tokens: 100
+        })
+      });
+      const data = await response.json();
+      return data.response;
+    }
+
+    document.getElementById("submit").addEventListener("click", async () => {
+      const prompt = document.getElementById("prompt").value;
+      const output = await callAI(prompt);
+      document.getElementById("output").textContent = output;
+    });
+  </script>
+</body>
+</html>
